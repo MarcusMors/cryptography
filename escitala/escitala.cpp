@@ -9,7 +9,7 @@ public:
 	string encode(string &message, int key[])
 	{
 		string msg = message;
-		int msgLength = message.size();
+		unsigned msgLength = message.size();
 		int difference = (key[0] * key[1]) - msgLength;
 		if (difference > 0)
 			msg.resize(msgLength + difference, '_');
@@ -32,7 +32,6 @@ public:
 	string decode(string &message, int key[])
 	{
 		string msg = message;
-		int msgLength = message.size();
 		string decodedMessage = "";
 		for (int i = 0; i < key[0]; i++)
 		{
@@ -65,6 +64,7 @@ public:
 		return decodedMessage;
 	};
 };
+Encoder encoder;
 
 class Receiver
 {
@@ -74,6 +74,10 @@ public:
 	{
 		key[0] = iKey[0];
 		key[1] = iKey[1];
+	}
+	void receiveMessage(string &message)
+	{
+		cout << encoder.decode(message, key) << endl;
 	}
 };
 
@@ -86,14 +90,10 @@ public:
 		key[0] = iKey[0];
 		key[1] = iKey[1];
 	}
-	// string generateMessage()
-	// {
-	// 	string *msg_ptr;
-	// 	string msg;
-	// 	Encoder encoder;
-	// 	cin >> msg;
-	// 	encoder.encode(msg, key);
-	// }
+	string generateMessage(string message)
+	{
+		return encoder.encode(message, key);
+	}
 };
 
 int main()
@@ -103,16 +103,16 @@ int main()
 	 *************************************************************************/
 	int key[2] = {5, 10};
 	// int key[2] = {3, 6};
-	Encoder encoder;
-	// string a = encoder.generateMessage();
 	Transmitter transmitter(key);
 	Receiver receiver(key);
-	string message = "hello world! how r u doing?";
-	string encodedMessage = encoder.encode(message, transmitter.key);
-	string decodedMessage = encoder.decode(encodedMessage, receiver.key);
-	int strLength = message.size();
+	// string message = "hello world! how r u doing?"; //el mensaje no debe usa '_'
+	string encodedMessage = transmitter.generateMessage("hello world! how are you doing?");
+	// string decodedMessage = receiver.receiveMessage(encodedMessage)
+	// string encodedMessage = encoder.encode(message, transmitter.key);
+	// string decodedMessage = encoder.decode(encodedMessage, receiver.key);
+	// int strLength = message.size();
 	cout << encodedMessage << endl;
-	cout << decodedMessage << endl;
+	receiver.receiveMessage(encodedMessage);
 
 	return 0;
 }
