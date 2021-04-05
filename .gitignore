@@ -1,2 +1,8 @@
-escitala
-escitala++
+*
+!*/
+!*/*.cpp
+!*/*.h
+vscode
+!.gitignore
+helper.*
+helper

@@ -1,16 +1,21 @@
 #include <iostream>
-#include <vector>
-// #include <string>
+// #include <vector>
+#include <string>
 using namespace std;
 
 class Encoder
 {
 public:
-	// int key;
 	string encode(string &message, int key[])
 	{
 		string msg = message;
 		int msgLength = message.size();
+		int difference = (key[0] * key[1]) - msgLength;
+		if (difference > 0)
+			msg.resize(msgLength + difference, '_');
+		// for (int i = 0; i < difference; i++)
+		// 	msg += '_';
+
 		string encodedMessage = "";
 		for (int i = 0; i < key[1]; i++)
 		{
@@ -39,7 +44,24 @@ public:
 			}
 			decodedMessage += aux;
 		}
-		// delete &message;
+		// delete extra characters;
+		// cout << "preRefined : " << decodedMessage << endl;
+		unsigned decodedMessageLength = decodedMessage.size();
+		for (int i = 0; i < decodedMessageLength; i++)
+		{
+			if (decodedMessage[i] == '_')
+			{
+				for (int j = i; j < decodedMessage.size() - 1; j++)
+				{
+					decodedMessage[j] = decodedMessage[j + 1];
+				}
+				decodedMessage.resize(decodedMessage.size() - 1);
+				decodedMessageLength--;
+				i--;
+			}
+		}
+		// cout << "postRefined : " << decodedMessage << endl;
+
 		return decodedMessage;
 	};
 };
@@ -76,12 +98,16 @@ public:
 
 int main()
 {
-	int key[2] = {3, 4};
+	/*************************************************************************
+	 * el producto de la llave, puede ser diferente a la longitud del string *
+	 *************************************************************************/
+	int key[2] = {5, 10};
+	// int key[2] = {3, 6};
 	Encoder encoder;
 	// string a = encoder.generateMessage();
 	Transmitter transmitter(key);
 	Receiver receiver(key);
-	string message = "hello world!";
+	string message = "hello world! how r u doing?";
 	string encodedMessage = encoder.encode(message, transmitter.key);
 	string decodedMessage = encoder.decode(encodedMessage, receiver.key);
 	int strLength = message.size();
