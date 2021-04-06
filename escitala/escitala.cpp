@@ -9,11 +9,11 @@ public:
 	{
 		string msg = message;
 		unsigned msgLength = message.size();
+
+		//Add characters to match the key
 		int difference = (key[0] * key[1]) - msgLength;
 		if (difference > 0)
 			msg.resize(msgLength + difference, '_');
-		// for (int i = 0; i < difference; i++)
-		// 	msg += '_';
 
 		string encodedMessage = "";
 		for (int i = 0; i < key[1]; i++)
@@ -25,9 +25,9 @@ public:
 			}
 			encodedMessage += aux;
 		}
-		// delete &message;
 		return encodedMessage;
 	};
+
 	string decode(string &message, int key[])
 	{
 		string msg = message;
@@ -36,29 +36,20 @@ public:
 		{
 			string aux;
 			for (int j = 0; j < key[1]; j++)
-			{
-				// cout << msg[i + (key[0] * j)] << endl;
 				aux += msg[i + (key[0] * j)];
-			}
 			decodedMessage += aux;
 		}
 		// delete extra characters;
-		// cout << "preRefined : " << decodedMessage << endl;
 		unsigned decodedMessageLength = decodedMessage.size();
 		for (int i = 0; i < decodedMessageLength; i++)
-		{
 			if (decodedMessage[i] == '_')
 			{
 				for (int j = i; j < decodedMessage.size() - 1; j++)
-				{
 					decodedMessage[j] = decodedMessage[j + 1];
-				}
 				decodedMessage.resize(decodedMessage.size() - 1);
 				decodedMessageLength--;
 				i--;
 			}
-		}
-		// cout << "postRefined : " << decodedMessage << endl;
 
 		return decodedMessage;
 	};
@@ -104,12 +95,7 @@ int main()
 	// int key[2] = {3, 6};
 	Transmitter transmitter(key);
 	Receiver receiver(key);
-	// string message = "hello world! how r u doing?"; //el mensaje no debe usa '_'
 	string encodedMessage = transmitter.generateMessage("hello world! how are you doing?");
-	// string decodedMessage = receiver.receiveMessage(encodedMessage)
-	// string encodedMessage = encoder.encode(message, transmitter.key);
-	// string decodedMessage = encoder.decode(encodedMessage, receiver.key);
-	// int strLength = message.size();
 	cout << encodedMessage << endl;
 	receiver.receiveMessage(encodedMessage);
 
