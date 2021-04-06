@@ -111,22 +111,26 @@ string descipher(string &message, int key)
 }
 class Receiver
 {
-public:
+private:
 	int key;
+
+public:
 	Receiver(int iKey)
 	{
 		key = iKey;
 	}
 	void receiveMessage(string &message)
 	{
-		cout << cipher(message, key) << endl;
+		cout << descipher(message, key) << endl;
 	}
 };
 
 class Transmitter
 {
-public:
+private:
 	int key;
+
+public:
 	Transmitter(int iKey)
 	{
 		key = iKey;
@@ -136,13 +140,14 @@ public:
 		return cipher(message, key);
 	}
 };
+
 int main()
 {
 	int key = 4;
 	Transmitter transmitter(key);
 	Receiver receiver(key);
-	// string cipheredMsg = transmitter.generateMessage("How are you doing since the 2020 pandemy?");
-	string cipheredMsg = transmitter.generateMessage("Hello world!");
+	string cipheredMsg = transmitter.generateMessage("How are you doing since the 2020 pandemy?");
+	// string cipheredMsg = transmitter.generateMessage("Hello world!");
 	cout << cipheredMsg << endl;
 	receiver.receiveMessage(cipheredMsg);
 
