@@ -6,25 +6,33 @@ string cipher(string &message, int key)
 {
 	unsigned size = message.size();
 	string encodedMsg = "";
+	// the distance between elements in the same row, except for the diagonals after the mid point
 	const int interval = (2 * (key - 1));
+	/*********************************
+	 * process by the number of rows *
+	 *********************************/
 	for (int i = 0; i < key; i++)
 	{
 		bool flag = false;
 		string aux = "";
+		// number of chars in this row that are in the first susecion
 		int rowLimit = 1 + ((size - 1 - i) / interval);
+		// If we aren't at the edge and if there is at least a char in the other susecion
 		if ((i != 0 && i != key - 1) && size > interval - i)
 		{
 			rowLimit += 1 + ((size - 1 - (interval - i)) / interval);
 			flag = true;
 		}
+
+		// we got the number of characters in the row, that is rowLimit
 		for (int j = 0; j < rowLimit; j++)
 		{
-			if (flag && (j % 2 == 1))
+			if (flag && (j % 2 == 1)) // the other susecion
 				aux += message[i + (interval * (j / 2)) + interval - (2 * i)];
-			else
+			else // main susecion
 			{
 				if (flag)
-					aux += message[i + (interval * j / 2)];
+					aux += message[i + (interval * j / 2)]; //parse the index
 				else
 					aux += message[i + (interval * j)];
 			}
@@ -44,12 +52,16 @@ string cutString(string &str, int start, int end)
 string descipher(string &message, int key)
 {
 	string decodedMsg = "";
-	string auxs[key];
-	const int interval = (2 * (key - 1));
 	unsigned size = message.size();
+	// we will chunk the main string
+	string auxs[key]; // and save them here.
 
+	// the distance between elements in the same row, except for the diagonals after the mid point
+	const int interval = (2 * (key - 1));
 	unsigned start = 0;
 	unsigned end = 0;
+
+	// search the end of every chunk and cut it.
 	for (int i = 0; i < key; i++)
 	{
 		end += 1 + ((size - 1 - i) / interval);
@@ -59,19 +71,23 @@ string descipher(string &message, int key)
 		start = end;
 	}
 
-	unsigned counter = 0;
-	bool breaker = false;
+	// there is no need to have a limit for every chunk,
+	// only to know what's the next index.
 	int counters[key];
 	for (int i = 0; i < key; i++)
 		counters[i] = 0;
 
+	unsigned counter = 0; // because this is the limit, the size of the message.
+	bool breaker = false; // we may reach the limit inside a for loop, this will assure that we break the whole loop
 	while (counter < size + 1)
 	{
+		// first group
 		decodedMsg += auxs[0][counters[0]];
 		counters[0]++;
 		counter++;
 		if (counter == size)
 			break;
+		// first susecion group
 		for (int i = 1; i < key - 1; i++)
 		{
 			decodedMsg += auxs[i][counters[i]];
@@ -84,6 +100,7 @@ string descipher(string &message, int key)
 			}
 		}
 
+		// middle point group (the other edge besides de start)
 		if (breaker || (counter == size))
 			break;
 		decodedMsg += auxs[key - 1][counters[key - 1]];
@@ -92,6 +109,7 @@ string descipher(string &message, int key)
 		if (counter == size)
 			break;
 
+		// the other susecion group
 		for (int i = key - 2; i > 0; i--)
 		{
 			decodedMsg += auxs[i][counters[i]];
@@ -143,6 +161,21 @@ public:
 
 int main()
 {
+	/********************************************************
+	 * How I chunked the rail-fence?                        *
+	 ********************************************************
+	 *  Let's say My key is 4 and my word is "Hello world!" *
+	 *  H e l l o - w o r l d !                             *
+	 *  H           w                                       *
+	 *    e           o                                     *
+	 *      l           r                                   *
+	 *        l           l                                 *
+	 *    we add this susecion                              *
+	 *             -          !                             *
+	 *          o           d                               *
+	 *We must know how many characters are in a row for this*
+	 ********************************************************/
+
 	int key = 4;
 	Transmitter transmitter(key);
 	Receiver receiver(key);
