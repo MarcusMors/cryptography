@@ -5,8 +5,13 @@ using namespace std;
 void printArr(int arr[], int n)
 {
 	for (int i = 0; i < n; i++)
-		cout << arr[i] << " , ";
-	cout << endl;
+	{
+		if (i != n - 1)
+			cout << arr[i] << " , ";
+		else
+			cout << arr[i];
+	}
+	cout << "|" << endl;
 }
 
 string cipher(string &message, int key)
@@ -14,8 +19,6 @@ string cipher(string &message, int key)
 	unsigned size = message.size();
 	string encodedMsg = "";
 	const int interval = (2 * (key - 1));
-	// int arr[key];
-	int flags[key - 2] = {0, 0, 0, 0};
 	// cout << "interval: " << interval << endl;
 	// cout << "size\t: " << size << endl;
 	for (int i = 0; i < key; i++)
@@ -33,7 +36,7 @@ string cipher(string &message, int key)
 		// arr[i] = rowLimit;
 		for (int j = 0; j < rowLimit; j++)
 		{
-			if (flag && j % 2 == 1)
+			if (flag && (j % 2 == 1))
 			{
 				// int index = i + interval - (2 * i) * j;
 				// int halfJ = j / 2;
@@ -75,8 +78,22 @@ string descipher(string &message, int key)
 {
 	string decodedMsg = "";
 	string auxs[key];
-	unsigned size = message.size();
 	const int interval = (2 * (key - 1));
+	unsigned size = message.size();
+	// cout << "interval : " << interval << endl;
+	// for (int i = 0; i < size; i++)
+	// {
+	// 	if (i % 10 == 0)
+	// cout << "| , ";
+	// 	else
+	// cout << i % 10 << " , ";
+	// }
+	// cout << endl;
+
+	// for (int i = 0; i < size; i++)
+	// cout << message[i] << " , ";
+	// cout << endl;
+
 	int counters[key];
 	for (int i = 0; i < key; i++)
 		counters[i] = 0;
@@ -86,19 +103,23 @@ string descipher(string &message, int key)
 	for (int i = 0; i < key; i++)
 	{
 		end += 1 + ((size - 1 - i) / interval);
+		// cout << "first\t: " << 1 + ((size - 1 - i) / interval) << endl;
 		if ((i != 0) && (i != key))
 		{
-			end += 1 + (((size - i) - (interval - (2 * i))) / interval);
+			end += 1 + (((size - 1 - i) - (interval - (2 * i))) / interval);
+			// cout << "second\t: " << 1 + (((size - 1 - i) - (interval - (2 * i))) / interval) << endl;
 		}
+		// cout << "start\t: " << start << "| end\t: " << end << endl;
 		auxs[i] = cutString(message, start, end);
-		// cout << "auxs[" << i << "] : " << auxs[i] << endl;
+		// cout << "auxs[" << i << "]\t: " << auxs[i] << endl;
 		start = end;
 	}
 
 	// cout << "before while" << endl;
 	unsigned counter = 0;
 	bool breaker = false;
-	while (counter < size)
+	// cout << key - 1 << endl;
+	while (counter < size + 1)
 	{
 		// printArr(counters, key);
 		// cout << "while\t\t: " << counter << endl;
@@ -106,60 +127,80 @@ string descipher(string &message, int key)
 		counters[0]++;
 		counter++;
 		if (counter == size)
+		{
+			// cout << "break\t: " << counter << endl;
 			break;
+		}
 		// cout << "decodedMsg\t: " << decodedMsg << endl;
+		// cout << "beginCounter\t: " << counter << endl;
 
 		for (int i = 1; i < key - 1; i++)
 		{
-			// cout << "middle" << endl;
 			decodedMsg += auxs[i][counters[i]];
 			counters[i]++;
 			counter++;
-			if (counter == size - 1)
+			// cout << "decodedMsg\t: " << decodedMsg << endl;
+			// cout << "m 1 dCounter\t: " << counter << endl;
+			if (counter == size)
 			{
 				breaker = true;
+				// cout << "m 1 dbreak\t: " << counter << endl;
 				break;
 			}
-			// cout << "decodedMsg\t: " << decodedMsg << endl;
 		}
-		if (breaker || (counter == size - 1))
+
+		if (breaker || (counter == size))
+		{
+			// cout << "mIdbreak : " << counter << endl;
 			break;
+		}
 		decodedMsg += auxs[key - 1][counters[key - 1]];
 		counters[key - 1]++;
 		counter++;
-		if (counter == size - 1)
+		if (counter == size)
+		{
+			// cout << "midbreak : " << counter << endl;
 			break;
+		}
 		// cout << "decodedMsg\t: " << decodedMsg << endl;
+		// cout << "m i dCounter\t: " << counter << endl;
 
 		for (int i = key - 2; i > 0; i--)
 		{
-			// cout << "middle" << endl;
 			decodedMsg += auxs[i][counters[i]];
 			counters[i]++;
 			counter++;
-			if (counter == size - 1)
+			// cout << "decodedMsg\t: " << decodedMsg << endl;
+			// cout << "m 2 dCounter\t: " << counter << endl;
+			if (counter == size)
 			{
 				breaker = true;
+				// cout << "m 2 dbreak : " << counter << endl;
 				break;
 			}
-			// cout << "decodedMsg\t: " << decodedMsg << endl;
 		}
-		if (breaker || (counter == size - 1))
+		if (breaker || (counter == size))
+		{
+			// cout << "break : " << counter << endl;
 			break;
-		// cout << "decodedMsg\t: " << decodedMsg << endl;
+		}
+		// cout << "decodedMsg\t: " << decodedMsg << endl;s
 	}
-	// cout << "after Whiles" << endl;
-
+	// printArr(counters, key);
 	return decodedMsg;
 }
 
 int main()
 {
-	int key = 4;
+	int key;
+	cin >> key;
+	// string msg = "Hello world!";
 	// string msg = "Hello world! are you ok?";
-	string msg = "How are you doing since the 2020 pandemy?";
+	// string msg = "How are you doing since the 2020 pandemy?"; // error at key 4
+	string msg = "example message created by me";
 	string cipheredMsg = cipher(msg, key);
-	cout << "msg.size():" << msg.size() << endl;
+	cout << msg << endl;
+	cout << "msg.size() : " << msg.size() << endl;
 	cout << cipheredMsg << endl;
 	string descipheredMsg = descipher(cipheredMsg, key);
 	cout << descipheredMsg << endl;
