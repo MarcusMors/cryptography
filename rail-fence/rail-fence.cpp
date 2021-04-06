@@ -64,6 +64,7 @@ string cipher(string &message, int key)
 		encodedMsg += aux;
 	}
 	// printArr(arr, key);
+	cout << "encodedMsg : " << encodedMsg << endl;
 	return encodedMsg;
 }
 string cutString(string &str, int start, int end)
@@ -196,8 +197,8 @@ int main()
 	cin >> key;
 	// string msg = "Hello world!";
 	// string msg = "Hello world! are you ok?";
-	// string msg = "How are you doing since the 2020 pandemy?"; // error at key 4
-	string msg = "example message created by me";
+	string msg = "How are you doing since the 2020 pandemy?";
+	// string msg = "example message created by me";
 	string cipheredMsg = cipher(msg, key);
 	cout << msg << endl;
 	cout << "msg.size() : " << msg.size() << endl;
