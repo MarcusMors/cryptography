@@ -53,44 +53,38 @@ string descipher(string &message, int key)
 {
 	string decodedMsg = "";
 	unsigned size = message.size();
-	// we will chunk the main string
-	string auxs[key]; // and save them here.
-
 	// the distance between elements in the same row, except for the diagonals after the mid point
 	const int interval = (2 * (key - 1));
 	unsigned start = 0;
-	unsigned end = 0;
+	// we will chunk the main string
+	int counters[key];
 
-	// search the end of every chunk and cut it.
-	for (int i = 0; i < key; i++)
-	{
-		end += 1 + ((size - 1 - i) / interval);
-		if ((i != 0) && (i != key))
-			end += 1 + (((size - 1 - i) - (interval - (2 * i))) / interval);
-		auxs[i] = cutString(message, start, end);
-		start = end;
-	}
-
+	// search the start of every chunk and cut it.
 	// there is no need to have a limit for every chunk,
 	// only to know what's the next index.
-	int counters[key];
-	for (int i = 0; i < key; i++)
-		counters[i] = 0;
+	for (int i = 0; i < key - 1; i++)
+	{
+		counters[i] = start;
+		start += 1 + ((size - 1 - i) / interval);
+		if ((i != 0) && (i != key))
+			start += 1 + (((size - 1 - i) - (interval - (2 * i))) / interval);
+	}
+	counters[key - 1] = start;
 
 	unsigned counter = 0; // because this is the limit, the size of the message.
 	bool breaker = false; // we may reach the limit inside a for loop, this will assure that we break the whole loop
 	while (counter < size + 1)
 	{
 		// first group
-		decodedMsg += auxs[0][counters[0]];
+		decodedMsg += message[counters[0]];
 		counters[0]++;
 		counter++;
 		if (counter == size)
 			break;
-		// first susecion group
+		// second group (first susecion)
 		for (int i = 1; i < key - 1; i++)
 		{
-			decodedMsg += auxs[i][counters[i]];
+			decodedMsg += message[counters[i]];
 			counters[i]++;
 			counter++;
 			if (counter == size)
@@ -100,19 +94,19 @@ string descipher(string &message, int key)
 			}
 		}
 
-		// middle point group (the other edge besides de start)
+		// third group (the last row)
 		if (breaker || (counter == size))
 			break;
-		decodedMsg += auxs[key - 1][counters[key - 1]];
+		decodedMsg += message[counters[key - 1]];
 		counters[key - 1]++;
 		counter++;
 		if (counter == size)
 			break;
 
-		// the other susecion group
+		// fourth group (second susecion)
 		for (int i = key - 2; i > 0; i--)
 		{
-			decodedMsg += auxs[i][counters[i]];
+			decodedMsg += message[counters[i]];
 			counters[i]++;
 			counter++;
 			if (counter == size)
@@ -176,7 +170,7 @@ int main()
 	 *We must know how many characters are in a row for this*
 	 ********************************************************/
 
-	int key = 4;
+	int key = 10;
 	Transmitter transmitter(key);
 	Receiver receiver(key);
 	string cipheredMsg = transmitter.generateMessage("How are you doing since the 2020 pandemy?");
