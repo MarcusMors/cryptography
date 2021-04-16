@@ -170,10 +170,15 @@ int main()
 	 *We must know how many characters are in a row for this*
 	 ********************************************************/
 
-	int key = 10;
+	int key = 5;
 	Transmitter transmitter(key);
 	Receiver receiver(key);
-	string cipheredMsg = transmitter.generateMessage("How are you doing since the 2020 pandemy?");
+	// string cipheredMsg = transmitter.generateMessage("How are you doing since the 2020 pandemy?");
+	// string cipheredMsg = "Hsdo inewgnam ncpyaie ?ro 0edt2  h0yue2o ";
+	// string cipheredMsg = "Heo slotama osc";
+	// string cipheredMsg = "tscehi ermsei ase sgs ta";
+	string cipheredMsg = "GSa aoblngretaii";
+	// string cipheredMsg = "Mn--dcsdoeeeeetie-ett--upsc-rhnassbj-imre-ihlgteh-sybd-oo-staay-rtpe-ouot-ttinc-sg-osa-etinoio.iiysn-o-n";
 	// string cipheredMsg = transmitter.generateMessage("Hello world!");
 	cout << cipheredMsg << endl;
 	receiver.receiveMessage(cipheredMsg);
