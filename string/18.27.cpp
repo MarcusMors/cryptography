@@ -2,53 +2,49 @@
 #include <string>
 
 using namespace std;
+void sort(string strs[], const int len, bool (*compare)(string, string))
+{
+	int minOrMax;
+	for (int i = 0; i < len - 1; i++)
+	{
+		minOrMax = i;
+		for (int index = i + 1; index < len; index++)
+			if (!(*compare)(strs[minOrMax], strs[index]))
+				minOrMax = index;
+		strs[minOrMax].swap(strs[i]);
+	}
+}
+bool ascendant(string a, string b)
+{
+	return a[0] < b[0];
+}
+bool descendente(string a, string b)
+{
+	return a[0] > b[0];
+}
+
+void printStrs(string strs[], int n, int &cont)
+{
+	for (cont = 0; cont < n; cont++)
+		cout << strs[cont] << " ";
+	cout << endl;
+}
 
 int main()
 {
-	string str("7145");
-	cout << str << endl;
-	int cont = 0;
+	const int arrLength = 10;
+	int order = 0;
+	int cont;
+	string strs[arrLength] = {"palimpsesto", "diadema", "duopolio", "hambre", "androgino", "marcelo", "agua", "fluorescente", "cena", "larimar"};
+	cout << "palabra antes" << endl;
+	printStrs(strs, arrLength, cont);
 
-	// for (string::iterator it = str.begin(); it != str.end(); ++it)
-	// {
-	// 	int left = int(*it) - int('0');
-	// 	cout << "left : " << left << endl;
-	// 	for (string::iterator jt = it; jt != str.end() - cont; ++jt)
-	// 	{
-	// 		int right = int(*jt) - int('0');
-	// 		cout << "\tright : " << right << endl;
-	// 		if (left < right)
-	// 		{
-	// 			char aux = *it;
-	// 			it = jt;
-	// 			*jt = aux;
-	// 			break;
-	// 		}
-	// 	}
-	// 	cont++;
-	// }
+	if (order == 1)
+		sort(strs, arrLength, ascendant);
+	else
+		sort(strs, arrLength, descendente);
 
-	for (string::iterator it = str.begin(); it != str.end(); ++it)
-	{
-		int left = int(*(it + cont)) - int('0');
-		cout << "left : " << left << endl;
-		for (string::iterator jt = it + 1; jt != str.end(); ++jt)
-		{
-			int right = int(*jt) - int('0');
-			cout << "\tright : " << right << endl;
-			if (left > right)
-			{
-				char aux = *it;
-				*it = *jt;
-				*jt = aux;
-				cout << "\t\tl:" << *it << " - r:" << *jt << endl;
-				cout << "\t\t" << str << endl;
-			}
-		}
-		cout << "\t" << str << endl;
-		cont++;
-	}
-	cout << str << endl;
-	//this is a change
+	printStrs(strs, arrLength, cont);
+
 	return 0;
 }
