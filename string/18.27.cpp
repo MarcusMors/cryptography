@@ -18,7 +18,7 @@ bool ascendant(string a, string b)
 {
 	return a[0] < b[0];
 }
-bool descendente(string a, string b)
+bool descendant(string a, string b)
 {
 	return a[0] > b[0];
 }
@@ -42,7 +42,7 @@ int main()
 	if (order == 1)
 		sort(strs, arrLength, ascendant);
 	else
-		sort(strs, arrLength, descendente);
+		sort(strs, arrLength, descendant);
 
 	printStrs(strs, arrLength, cont);
 
