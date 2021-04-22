@@ -7,3 +7,4 @@ vscode
 helper.*
 helper
 18.20.*
+!cesar/dictionaries/*
