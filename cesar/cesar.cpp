@@ -2,7 +2,7 @@
 
 using namespace std;
 
-string cesar(string &alphabet, int key, string &msg)
+void cesar(string &alphabet, int key, string &msg)
 {
 	int alphabetSize = alphabet.size();
 	string ciphered = "";
@@ -11,52 +11,66 @@ string cesar(string &alphabet, int key, string &msg)
 			if (msg[i] == alphabet[j])
 				ciphered += alphabet[abs(j + key) % alphabetSize];
 
-	return ciphered;
+	msg = ciphered;
 }
 
 class Receiver
 {
 private:
 	int key;
-	string alphabet = "abcdefghijklmnopqrstuvwxyz";
+	string alphabet;
 
 public:
-	Receiver(int iKey)
+	Receiver(int iKey, string iAlphabet)
 	{
 		key = iKey;
+		alphabet = iAlphabet;
 	}
-	string descipher(string &msg)
+	void descipher(string &msg)
 	{
-		cout << cesar(alphabet, key * -1, msg) << endl;
+		cesar(alphabet, key * -1, msg);
 	}
 };
 class Transmitter
 {
 private:
 	int key;
-	string alphabet = "abcdefghijklmnopqrstuvwxyz";
+	string alphabet;
 
 public:
-	Transmitter(int iKey)
+	Transmitter(int iKey, string iAlphabet)
 	{
+		alphabet = iAlphabet;
 		key = iKey;
 	}
-	string cipher(string msg)
+	void cipher(string &msg)
 	{
-		string message = msg;
-		return cesar(alphabet, key, message);
+		cesar(alphabet, key, msg);
 	}
 };
 
 int main()
 {
-	int key = 2;
-	Receiver receiver(key);
-	Transmitter transmitter(key);
-	string cipheredMsg = transmitter.cipher("hello");
+	// string alphabet = "abcdefghijklmnopqrstuvwxyz";
+	// string alphabet = "abcdefghijklmnopqrstuvwxyzABCDFGHIJKLMNOPQRSTUVWXYZ";
+	// string alphabet = " abcdefghijklmnopqrstuvwxyzABCDFGHIJKLMNOPQRSTUVWXYZ";
+	string alphabet = "1 abcdefghijk2lmnopqrstu3vwxyz45ABCDFGH6IJKLMN7OP8QRSTUVW9XYZ";
+	string msg;
+	cout << "input message: ";
+	getline(cin, msg);
+	int key;
+	cout << "input key    : ";
+	cin >> key;
+	Receiver receiver(key, alphabet);
+	Transmitter transmitter(key, alphabet);
+	// string cipheredMsg = transmitter.cipher(msg);
+	transmitter.cipher(msg);
 	cout << "ciphered message" << endl;
-	cout << cipheredMsg << endl;
+	cout << msg << endl;
+	// cout << "crypto analysis" << endl;
+	// cout << cryptoAnalysis(msg) << endl;
+	receiver.descipher(msg);
 	cout << "desciphered message" << endl;
-	receiver.descipher(cipheredMsg);
+	cout << msg << endl;
 	return 0;
 }
