@@ -1,10 +1,43 @@
-*
-!*/
-!*/*.cpp
-!*/*.h
 vscode
-!.gitignore
-helper.*
-helper
-18.20.*
-!cesar/dictionaries/*
+
+# build directory
+build
+
+# dev testing files
+*helper.*
+*helper
+*aux
+*aux.*
+
+# Prerequisites
+*.d
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Fortran module files
+*.mod
+*.smod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
