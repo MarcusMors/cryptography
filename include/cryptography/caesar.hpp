@@ -1,6 +1,3 @@
-#ifndef __MODULE_H__
-#define __MODULE_H__
-
 // Copyright (C) 2021 José Enrique Vilca Campana
 //
 // This program is free software: you can redistribute it and/or modify
@@ -16,21 +13,26 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-template <typename T>
-T operator%(T lhs_dividend, T const rhs_divisor)
-{
-	constexpr T quotient = lhs_dividend / rhs_divisor;
-	constexpr T remainder = lhs_dividend - (quotient * rhs_divisor);
-	return remainder > -1 ? remainder : remainder - rhs_divisor;
-}
+// namespace caesar
+// {
+// 	void cipher(char &msg, int iKey);
+// 	void descipher(std::string &msg, int iKey);
+// 	void cryptoAnalysis(std::string &msg);
+// } // namespace caesar
 
-template <typename T>
-T operator%=(T &lhs_dividend, T const rhs_divisor)
+class Caesar
 {
-	constexpr T quotient = lhs_dividend / rhs_divisor;
-	constexpr T remainder = lhs_dividend - (quotient * rhs_divisor);
-	lhs_dividend = remainder > -1 ? remainder : remainder - rhs_divisor;
-	return *lhs_dividend;
-}
+private:
+	char *m_alphabet;
+	int m_alphabet_size{};
 
-#endif // __MODULE_H__
+public:
+	Caesar(const char t_alphabet[], const unsigned t_alphabet_size);
+	// caesar(const char &t_alphabet);
+	// caesar(char t_alphabet[]);
+	// char *cipher(const char *&t_msg);
+	void cipher(char t_msg[], int t_key);
+	// char *descipher(const char *&t_msg);
+	void descipher(char t_msg[], int t_key);
+	void crypto_analysis(char t_msg[]);
+};

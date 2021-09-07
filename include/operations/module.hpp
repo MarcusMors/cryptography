@@ -1,3 +1,6 @@
+#ifndef __MODULE_H__
+#define __MODULE_H__
+
 // Copyright (C) 2021 José Enrique Vilca Campana
 //
 // This program is free software: you can redistribute it and/or modify
@@ -13,5 +16,26 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-#define Tutorial_VERSION_MAJOR @Tutorial_VERSION_MAJOR@
-#define Tutorial_VERSION_MINOR @Tutorial_VERSION_MINOR@
+namespace operations
+{
+	/**
+	 * @brief module operations
+	 *
+	 * @tparam T integer type, non floating-point type
+	 * @param t_dividend
+	 * @param t_divisor
+	 * @return T module, t_dividend % t_divisor
+	 */
+	template <typename T>
+	T mod(const T t_dividend, const T t_divisor);
+} // namespace operations
+
+template <typename T>
+T operations::mod(const T t_dividend, const T t_divisor)
+{
+	const T quotient = t_dividend / t_divisor;
+	const T remainder = t_dividend - (quotient * t_divisor);
+	return remainder > -1 ? remainder : remainder - t_divisor;
+}
+
+#endif // __MODULE_H__

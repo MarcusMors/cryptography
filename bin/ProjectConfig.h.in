@@ -13,38 +13,5 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-/**
- * @file GCD-euclidean.cpp
- * @author Jose Vilca Campana <@marcusmors> (alivezeh@gmail.com)
- * @brief
- * @version 0.1
- * @date 2021-07-30
- *
- * @copyright Copyright (c) 2021
- *
- */
-#include "../../include/operations/gcd.hpp"
-// #include "../../include/operations/module.hpp"
-
-namespace gcd
-{
-	template <typename T>
-	T euclidean_recursive(T t_a, T t_b)
-	{
-		if (t_b == 0)
-			return t_a;
-		return euclidean_recursive(t_b, t_a % t_b);
-	}
-	template <typename T>
-	T euclidean_iterative(T t_a, T t_b)
-	{
-		while (t_b != 0)
-		{
-			T aux = t_b;
-
-			t_b = t_a % t_b;
-			t_a = aux;
-		}
-		return t_a;
-	}
-}
+#define VERSION_MAJOR @VERSION_MAJOR@
+#define VERSION_MINOR @VERSION_MINOR@

@@ -13,17 +13,5 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-#include <iostream>
-#include "headers/GCD.hpp"
-#include "headers/ProjectConfig.h"
-
-using namespace std;
-
-int main()
-{
-	int a = 24;
-	int b = 11;
-	cout << GCD::euclidean_recursive(a, b) << endl;
-	cout << GCD::euclidean_iterative(a, b) << endl;
-	return 0;
-}
+#define VERSION_MAJOR 1
+#define VERSION_MINOR 0

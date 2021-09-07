@@ -121,17 +121,17 @@ public:
 	}
 };
 
-int main()
-{
-	int key[2] = {mcd(301, Afin().alphabetSize), rand()};
-	cout << Afin().alphabetSize << endl;
-	string message = "clientsecret";
+// int main()
+// {
+// 	int key[2] = {mcd(301, Afin().alphabetSize), rand()};
+// 	cout << Afin().alphabetSize << endl;
+// 	string message = "clientsecret";
 
-	Transmitter transmitter(key);
-	Receiver receiver(key);
-	string cipheredMsg = transmitter.cipher(message);
-	cout << "ciphered message \t: " << cipheredMsg << endl;
-	cout << endl;
-	string descipheredMsg = receiver.descipher(cipheredMsg);
-	cout << "desciphered message \t: " << descipheredMsg << endl;
-}
+// 	Transmitter transmitter(key);
+// 	Receiver receiver(key);
+// 	string cipheredMsg = transmitter.cipher(message);
+// 	cout << "ciphered message \t: " << cipheredMsg << endl;
+// 	cout << endl;
+// 	string descipheredMsg = receiver.descipher(cipheredMsg);
+// 	cout << "desciphered message \t: " << descipheredMsg << endl;
+// }

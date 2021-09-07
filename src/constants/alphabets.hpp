@@ -18,17 +18,17 @@
 
 namespace alphabet
 {
-	char lower_case[] = "abcdefghijklmnopqrstuvwxyz";
-	char upper_case[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-	char numeric[] = "0123456789";
-	char special_characters[] = "@$#&{}[]()<>~^_|+-*/%=";
-	char punctuation_symbols[] = ",.;:\"'?!";
-	char all_case[] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-	char numeric_lower_case[] = "0123456789abcdefghijklmnopqrstuvwxyz";
-	char numeric_upper_case[] = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-	char numeric_all_case[] = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-	char phonetic[] = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-	char alphanumeric[] = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ@$#&{}[]()<>~^_|+-*/%=,.;:\"'?!";
+	const char lower_case[]{"abcdefghijklmnopqrstuvwxyz "};
+	const char upper_case[]{"ABCDEFGHIJKLMNOPQRSTUVWXYZ "};
+	const char numeric[]{"0123456789 "};
+	const char special_characters[]{"@$#&{}[]()<>~^_|+-*/%= "};
+	const char punctuation_symbols[]{",.;:\"'?! "};
+	const char all_case[]{"abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ"};
+	const char numeric_lower_case[]{"0123456789abcdefghijklmnopqrstuvwxyz "};
+	const char numeric_upper_case[]{"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ "};
+	const char numeric_all_case[]{"0123456789abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ"};
+	const char phonetic[]{"0123456789abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ"};
+	const char alphanumeric[]{"0123456789abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ@$#&{}[]()<>~^_|+-*/%=,.;:\"'?!"};
 }
 
 #endif // __ALPHABETS_H__

@@ -13,7 +13,36 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+#include <string>
 namespace affine
 {
+	class Affine
+	{
+	private:
+		int Euclid_extended(int a, int b);
+
+	public:
+		std::string cipher(std::string t_msg, int t_key[2]);
+		std::string descipher(std::string t_msg, int t_key[2]);
+	};
+
+	class Transmitter
+	{
+	private:
+		int key[2]{0, 0};
+
+	public:
+		Transmitter(int t_key[2]);
+		std::string cipher(std::string t_msg);
+	};
+	class Receiver
+	{
+	private:
+		int key[2]{0, 0};
+
+	public:
+		Receiver(int t_key[2]);
+		std::string descipher(std::string t_msg);
+	};
 
 }

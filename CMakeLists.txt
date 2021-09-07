@@ -1,41 +1,36 @@
-cmake_minimum_required (VERSION 3.0)
+# =============================================================================
+# Preamble
+# =============================================================================
 
-project(abstract_algebra)
+cmake_minimum_required(VERSION 3.12)
 
-add_library(
-	affine
-	include/cryptography/affine.hpp
-	src/cryptography/affine.cpp
-)
-add_library(
-	cesar
-	include/cryptography/cesar.hpp
-	src/cryptography/cesar.cpp
-)
-add_library(
-	scytale
-	include/cryptography/scytale.hpp
-	src/cryptography/scytale.cpp
-)
+project(
+  abstract_algebra_project
+  VERSION 1.0.0
+  DESCRIPTION "c++ hello world library"
+  HOMEPAGE_URL https://github.com/MarcusMors/jose-enrique-vilca-campana)
 
-add_library(
-	rail_fence
-	include/cryptography/rail_fence.hpp
-	src/cryptography/rail_fence.cpp
-)
+#[============================================================================[
+# Project wide setup
+#]============================================================================]
+option(BUILD_DOC "Build Documentation" OFF)
 
-if(MSVC)
-	add_compile_options(/W4)
-else()
-	add_compile_options(-Wall -Wextra -Wpedantic)
-endif(MSVC)
+# variables
+set(PROJECT_SOURCE_DIR "src")
+set(PROJECT_INCLUDE_DIR "include")
 
-add_executable(${PROJECT_NAME} src/main.cpp)
+#[============================================================================[
+# Main targets built by this project
+#]============================================================================]
 
-target_include_directories(affine PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include")
-target_link_libraries(${PROJECT_NAME} PRIVATE affine cesar scytale rail_fence)
+add_subdirectory(${PROJECT_SOURCE_DIR})
+add_subdirectory(${PROJECT_INCLUDE_DIR})
+add_subdirectory(bin)
+if(BUILD_DOC)
+  add_subdirectory(docs-building/docs-doxygen)
+endif()
 
-# # Add sub directories
-# add_subdirectory(include) # public interfaces
-# add_subdirectory(src) # private interfaces and .m
-# # add_subdirectory(libs) # third party libraries and own libraries
+# Things only needed if we are the top level project
+
+# if(CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR) add_subdirectory(tests)
+# add_subdirectory(packaging) endif()

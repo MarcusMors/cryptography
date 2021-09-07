@@ -1,16 +1,29 @@
-project(subbinary)
+message(STATUS "Creating libraries")
 
-set(SOURCES
-    main.cpp
-)
+# add_library(LIB_cryptography cryptography/*.hpp ../src/cryptography/*.cpp)
+# add_library(LIB_affine cryptography/affine.hpp ../src/cryptography/affine.cpp)
+add_library(LIB_caesar cryptography/caesar.hpp ../src/cryptography/caesar.cpp)
+# add_library(LIB_scytale cryptography/scytale.hpp
+# ../src/cryptography/scytale.cpp) add_library(LIB_rail_fence
+# cryptography/rail_fence.hpp ../src/cryptography/rail_fence.cpp)
 
-# Create the executable
-add_executable(${PROJECT_NAME} ${SOURCES})
+# add_library(inverse INTERFACE) target_sources(inverse operations/inverse.hpp)
 
-# Link the static library from subproject1 using it's alias sub::lib1
-# Link the header only library from subproject2 using it's alias sub::lib2
-# This will cause the include directories for that target to be added to this project
-target_link_libraries(${PROJECT_NAME}
-    sub::lib1
-    sub::lib2
-)
+# add_library(mcm INTERFACE) target_sources(mcm operations/module.hpp)
+
+# add_library(LIB_operations INTERFACE) target_sources(LIB_operations INTERFACE
+# "${CMAKE_CURRENT_LIST_DIR}/operations/*.hpp")
+
+add_library(LIB_module INTERFACE)
+target_sources(LIB_module
+               INTERFACE "${CMAKE_CURRENT_LIST_DIR}/operations/module.hpp")
+
+# add_library(gcd INTERFACE) target_sources(gcd operations/gcd.hpp)
+
+# target_include_directories(operations PUBLIC "${CMAKE_CURRENT_LIST_DIR}")
+
+# target_include_directories(LIB_affine PUBLIC "${CMAKE_CURRENT_LIST_DIR}")
+target_include_directories(LIB_caesar PUBLIC "${CMAKE_CURRENT_LIST_DIR}")
+# target_include_directories(LIB_scytale PUBLIC "${CMAKE_CURRENT_LIST_DIR}")
+# target_include_directories(LIB_rail_fence PUBLIC "${CMAKE_CURRENT_LIST_DIR}")
+target_include_directories(LIB_module INTERFACE "${CMAKE_CURRENT_LIST_DIR}")

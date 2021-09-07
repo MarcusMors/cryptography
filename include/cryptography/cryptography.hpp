@@ -13,9 +13,9 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-#include "./afin.hpp"
+#include "./affine.hpp"
 #include "./cesar.hpp"
-#include "./escitala.hpp"
+#include "./scytale.hpp"
 #include "./rail_fence.hpp"
 #include "./RSA.hpp"
 
