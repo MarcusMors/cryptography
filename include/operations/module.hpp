@@ -21,9 +21,9 @@ namespace operations
 	/**
 	 * @brief module operations
 	 *
-	 * @tparam T integer type, non floating-point type
-	 * @param t_dividend
-	 * @param t_divisor
+	 * @tparam T integer
+	 * @param t_dividend number
+	 * @param t_divisor modular base
 	 * @return T module, t_dividend % t_divisor
 	 */
 	template <typename T>
@@ -35,7 +35,7 @@ T operations::mod(const T t_dividend, const T t_divisor)
 {
 	const T quotient = t_dividend / t_divisor;
 	const T remainder = t_dividend - (quotient * t_divisor);
-	return remainder > -1 ? remainder : remainder - t_divisor;
+	return remainder >= 0 ? remainder : remainder - t_divisor;
 }
 
 #endif // __MODULE_H__
