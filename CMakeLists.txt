@@ -5,9 +5,10 @@
 cmake_minimum_required(VERSION 3.12)
 
 project(
-  abstract_algebra_project
+  abstract_algebra
   VERSION 1.0.0
-  DESCRIPTION "c++ hello world library"
+  DESCRIPTION
+    "c++ Abstract Algebra (Cryptography, PRNG, seed-generation and operations algorithms) library"
   HOMEPAGE_URL https://github.com/MarcusMors/jose-enrique-vilca-campana)
 
 #[============================================================================[
@@ -25,7 +26,10 @@ set(PROJECT_INCLUDE_DIR "include")
 
 add_subdirectory(${PROJECT_SOURCE_DIR})
 add_subdirectory(${PROJECT_INCLUDE_DIR})
-add_subdirectory(bin)
+# add_subdirectory(bin) # bad practice modifying or creating your own packaging
+# FSH directory
+add_subdirectory(examples)
+
 if(BUILD_DOC)
   add_subdirectory(docs-building/docs-doxygen)
 endif()
