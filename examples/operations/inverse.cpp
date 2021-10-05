@@ -22,11 +22,21 @@ using namespace operations::inverse;
 
 int main()
 {
-	cout << "Modular multiplicative inverse of:\n";
+	cout << "EXAMPLES Modular multiplicative inverse of:\n";
 	cout << "3 in base 26 is\t: " << euclid_extended(3, 26) << " = 9\n";
 	cout << "29 in base 101 is\t: " << euclid_extended(29, 101) << " = 7\n";
 	cout << "13 in base 14 is\t: " << euclid_extended(13, 14) << " = 13\n";
 	cout << '\n';
+
+	cout << "Try yourself! input 2 numbers, please.\n";
+	int integer{0}, mod_base{0};
+	cout << "integer\t: ";
+	cin >> integer;
+	cout << "modular base\t: ";
+	cin >> mod_base;
+	cout << "modular multiplicative inverse of " << integer << " in mod base " << mod_base << " is : " << euclid_extended(integer, mod_base) << '\n';
+	cout << '\n';
+
 	cout << "Here is an invalid argument exception example:\n";
 	cout << "7 in base 14 is\t: " << std::flush << euclid_extended(7, 14) << endl;
 
