@@ -35,7 +35,7 @@ T operations::mod(const T t_dividend, const T t_divisor)
 {
 	const T quotient = t_dividend / t_divisor;
 	const T remainder = t_dividend - (quotient * t_divisor);
-	return remainder >= 0 ? remainder : remainder - t_divisor;
+	return remainder >= 0 ? remainder : t_divisor + remainder;
 }
 
 #endif // __MODULE_H__
