@@ -11,11 +11,13 @@
 
 #include <iostream>
 #include <fstream>
+#include <vector>
 //user made public libs
 #include <cryptography/caesar.hpp>
 #include <operations/module.hpp>
 //user made libs
 #include "../constants/alphabets.hpp"
+#include "../constants/letter_frequency.hpp"
 
 using namespace std;
 using namespace operations;
@@ -78,30 +80,73 @@ void Caesar::descipher(char t_msg[], int t_key)
 	}
 	cout << ciphered << endl;
 }
+
+bool is_not_in(char t_wanted, string t_str)
+{
+	for (size_t i = 0; i < t_str.size(); i++)
+	{
+		if (t_wanted == t_str[i])
+		{
+			return false;
+		}
+	}
+	return true;
+}
+
 void Caesar::crypto_analysis(char t_msg[]) // desciph a message
 {
 	int msg_size = sizeof(t_msg) - 1;
 
-	for (int key = 0; key < m_alphabet_size; key++)
+	vector<int> frequency[2];
+	string letters = "";
+	for (int i = 0; i < msg_size; i++)
 	{
-		char ciphered[msg_size];
-		for (int i = 0; i < msg_size; i++)
+		bool flag = false;
+		for (size_t j = 0; j < frequency[0].size(); j++)
 		{
-			for (int j = 0; j < m_alphabet_size; j++)
+			if (t_msg[i] == char(frequency[1][j]))
 			{
-				if (t_msg[i] == m_alphabet[j])
-				{
-					ciphered[i] = m_alphabet[(m_alphabet_size + j - key) % m_alphabet_size];
-					break;
-				}
+				frequency[0][j] += 1;
+				flag = true;
+				break;
 			}
 		}
-		cout << "key : " << key << endl;
-		for (int i = 0; i < msg_size; i++)
+		if (flag)
 		{
-			cout << ciphered[i];
+			frequency[0].push_back(1);
+			frequency[1].push_back(int(t_msg[i]));
 		}
-		cout << endl;
+	}
+
+	int old_greatest = 100000;
+	for (int i = 0; i < sizeof(letter_frequency::english) - 1; i++)
+	{
+		int greatest = -10000;
+		int index;
+		char copy[msg_size];
+		for (int j = 0; j < msg_size; j++)
+		{
+			copy[j] = t_msg[j];
+		}
+
+		for (size_t j = 0; j < frequency[0].size(); j++)
+		{
+			if (frequency[0][j] > greatest && frequency[0][j] < old_greatest)
+			{
+				greatest = frequency[0][j];
+				index = j;
+			}
+		}
+		old_greatest = greatest;
+
+		for (int j = 0; j < m_alphabet_size; j++)
+		{
+			if (char(frequency[1][index]) == m_alphabet[j])
+			{
+				descipher(copy, index);
+				break;
+			}
+		}
 	}
 }
 
