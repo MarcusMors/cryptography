@@ -20,13 +20,33 @@
 using namespace std;
 using namespace operations::inverse;
 
+template <typename T>
+void display(T test_data[3])
+{
+	const T integer = test_data[0];
+	const T mod_base = test_data[1];
+	const T expected_answer = test_data[2];
+	cout << integer << " in base " << mod_base << " is\t: " << euclid_extended(integer, mod_base) << " = " << expected_answer << '\n';
+}
+
 int main()
 {
+	long long integers__bases__answers[6][3] = {
+		{3, 26, 9},
+		{29, 101, 7},
+		{13, 14, 13},
+		{31, 66, 49},
+		{66, 31, 8},
+		{9, 275, 214}
+
+	};
+
 	cout << "EXAMPLES Modular multiplicative inverse of:\n";
-	cout << "3 in base 26 is\t: " << euclid_extended(3, 26) << " = 9\n";
-	cout << "29 in base 101 is\t: " << euclid_extended(29, 101) << " = 7\n";
-	cout << "13 in base 14 is\t: " << euclid_extended(13, 14) << " = 13\n";
-	cout << '\n';
+	for (auto i = 0; i < 6; i++)
+	{
+		display(integers__bases__answers[i]);
+	}
+	cout << endl;
 
 	cout << "Try yourself! input 2 numbers, please.\n";
 	int integer{0}, mod_base{0};
@@ -34,7 +54,7 @@ int main()
 	cin >> integer;
 	cout << "modular base\t: ";
 	cin >> mod_base;
-	cout << "modular multiplicative inverse of " << integer << " in mod base " << mod_base << " is : " << euclid_extended(integer, mod_base) << '\n';
+	cout << integer << " in base " << mod_base << " is : " << euclid_extended(integer, mod_base) << '\n';
 	cout << '\n';
 
 	cout << "Here is an invalid argument exception example:\n";

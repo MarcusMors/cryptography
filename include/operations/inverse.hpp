@@ -16,8 +16,8 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-#define DEBUGGING 0
-#ifdef DEBUGGING
+#define DEBUGGING_TABLE 1
+#ifdef DEBUGGING_TABLE
 #include <iostream>
 #endif
 
@@ -57,39 +57,71 @@ T operations::inverse::euclid_extended(T t_integer, T t_mod_base)
 
 	// based in this explanation https://www.youtube.com/watch?v=D289EF58Yrw
 	T cont{0};
-	T auxA{t_integer};
-	T auxB{t_mod_base};
+	T integer{t_integer};
+	T mod_base{t_mod_base};
 
-	// non-recursive euclidian / doing euclidean division
-	while (mod(t_integer, t_mod_base) != 0)
+	// doing euclidean division to get the number of iterations, thus the array size.
+	while (t_mod_base != 0)
 	{
-		T temp = t_mod_base;
-		t_mod_base = mod(t_integer, t_mod_base);
-		t_integer = temp;
-		cont++;
-	}
+		T aux{t_mod_base};
 
-	cont = cont + 2;
-	T g[cont]{auxA, auxB};
-	T y[cont];
-	T u[cont]{1, 0};
-	T v[cont]{0, 1};
+		t_mod_base = mod(t_integer, t_mod_base);
+		t_integer = aux;
+		cont++;
+	} // another solution is: cont = log2(t_integer);
+
+	T quotients[cont];
+	cont += 2;
+	T remainders[cont]{integer, mod_base};
+	T v[cont]{1, 0}; // (v[2], v[3]) always will be (1 , -quotients[3])
+
+	/** i * quotients_i * remainders_i * v_i                   *
+	 *  0 * -           * integer      * 0                     *
+	 *  1 * -           * mod_base     * 1                     *
+	 *  2 * int//base   * int%base     * v_0-(quotients_2*v_1) *
+	 * ...* ...         * ...          * ...                   */
+
+	if (DEBUGGING_TABLE)
+	{
+		std::cout << "\ni\tquotients_i\tremainders_i\tv_i\n";
+	}
 
 	T i{1};
 	while (true)
 	{
-		y[i + 1] = g[i - 1] / g[i];
-		g[i + 1] = g[i - 1] - (y[i + 1] * g[i]);
-		u[i + 1] = u[i - 1] - (y[i + 1] * u[i]);
-		v[i + 1] = v[i - 1] - (y[i + 1] * v[i]);
-		if (g[i + 1] == 0)
+		const T next = i + 1;
+		const T prev = i - 1;
+		const T q_next = i - 1;
+
+		if (DEBUGGING_TABLE)
 		{
-			if (DEBUGGING)
+			T Q = quotients[i - 2];
+			if ((prev == 0) || (prev == 1))
 			{
-				std::cout << "mod(u[" << i << "]"
-						  << "g[" << 1 << "]) : " << u[i] << '%' << g[1] << " : " << mod(u[i], g[1]) << std::endl;
+				Q = 0;
 			}
-			return mod(u[i], g[1]);
+
+			std::cout << prev << '\t' << Q << "\t\t" << remainders[i] << "\t\t" << v[i] << std::endl;
+		}
+
+		quotients[q_next] = remainders[prev] / remainders[i];
+		remainders[next] = remainders[prev] - (quotients[q_next] * remainders[i]);
+		std::cout << "v[" << next << "] = " << v[prev] << " - (" << quotients[q_next] << " * " << v[i] << ")\n";
+		v[next] = v[prev] - (quotients[q_next] * v[i]);
+
+		if (remainders[next] == 0)
+		{
+			if (DEBUGGING_TABLE)
+			{
+				T Q = quotients[q_next];
+				if ((i == 0) || (i == 1))
+				{
+					Q = 0;
+				}
+
+				std::cout << i << '\t' << Q << "\t\t" << remainders[next] << "\t\t" << v[next] << std::endl;
+			}
+			return mod(v[i], remainders[1]); // since mod(-v[i], k) = mod(v[i], k)
 		}
 		i++;
 	}
