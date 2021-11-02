@@ -17,6 +17,12 @@ target_sources(O_module
 add_library(O_inverse INTERFACE)
 target_sources(O_inverse
                INTERFACE "${CMAKE_CURRENT_LIST_DIR}/operations/inverse.hpp")
+
+add_library(O_primitive_roots INTERFACE)
+target_sources(
+  O_primitive_roots
+  INTERFACE "${CMAKE_CURRENT_LIST_DIR}/operations/primitive_roots.hpp")
+
 #[============================================================================[
 # Adding libraries to #include
 #]============================================================================]
@@ -31,3 +37,4 @@ target_include_directories(C_caesar PUBLIC "${CMAKE_CURRENT_LIST_DIR}")
 # target_include_directories(LIB_rail_fence PUBLIC "${CMAKE_CURRENT_LIST_DIR}")
 target_include_directories(O_module INTERFACE "${CMAKE_CURRENT_LIST_DIR}")
 target_include_directories(O_inverse INTERFACE "${CMAKE_CURRENT_LIST_DIR}")
+target_include_directories(O_primitive_roots INTERFACE "${CMAKE_CURRENT_LIST_DIR}")

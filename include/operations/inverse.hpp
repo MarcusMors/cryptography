@@ -128,3 +128,20 @@ T operations::inverse::euclid_extended(T t_integer, T t_mod_base)
 }
 
 #endif // __INVERSE_H__
+
+// void gcdExtended(ZZ a, ZZ b, ZZ& x, ZZ& y) {
+//     x = ZZ(1), y = ZZ(0);
+
+//     ZZ x1(0), y1(1), a1(a), b1(b);
+//     while (b1 != 0) {
+//         ZZ q = a1 / b1;
+//         tie(x, x1) = make_tuple(x1, x - q * x1);
+//         tie(y, y1) = make_tuple(y1, y - q * y1);
+//         tie(a1, b1) = make_tuple(b1, a1 - q * b1);
+//     }
+// }
+// ZZ inverse(ZZ a,ZZ n){
+//     ZZ x,y;
+//     gcdExtended(a,n,x,y);
+//     return module(x,n);
+// }
