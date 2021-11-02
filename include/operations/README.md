@@ -21,18 +21,36 @@
 
 <!-- code_chunk_output -->
 
-- [What are these?](#what-are-these)
-	- [modular inverse](#modular-inverse)
-		- [explanation with example:](#explanation-with-example)
-	- [GCD (Greatest Common Divisor)](#gcd-greatest-common-divisor)
-	- [MCM (Minimum Common Multiple)](#mcm-minimum-common-multiple)
-	- [module (remainder operation)](#module-remainder-operation)
-- [sources](#sources)
+- [Operations](#operations)
+	- [What are these?](#what-are-these)
+		- [Primitive_roots](#primitive_roots)
+		- [modular inverse](#modular-inverse)
+			- [explanation with example:](#explanation-with-example)
+		- [GCD (Greatest Common Divisor)](#gcd-greatest-common-divisor)
+		- [MCM (Minimum Common Multiple)](#mcm-minimum-common-multiple)
+		- [Module (remainder operation)](#module-remainder-operation)
+		- [Exponentiation and Modular Exponentiation](#exponentiation-and-modular-exponentiation)
+	- [sources](#sources)
 
 <!-- /code_chunk_output -->
-
+# Operations
 ## What are these?
-these are common operations in cryptography, number theory and, in general, abstract algebra.
+these are common operations in cryptography, number theory, and, in general, abstract algebra.
+
+### Primitive_roots
+
+**Compile** the code using:
+```bash
+cmake -B build
+cd build
+make
+```
+now, you are at `build/` directory.
+**run** the **example** doing:
+```bash
+cd examples/operations
+./operations_examples_primitive_roots
+```
 
 ### modular inverse
 
@@ -87,11 +105,13 @@ Encontremos los valores iniciales de las secuencias ${s_i}$ y ${t_i​}$. por de
 
 nos detenemos cuando el residuo sea 0, osea, $r_{i-1} = 0$
 
+
+
 ### GCD (Greatest Common Divisor)
 ### MCM (Minimum Common Multiple)
-### module (remainder operation)
+### Module (remainder operation)
 
-
+### Exponentiation and Modular Exponentiation
 ## sources
 
 - https://brilliant.org/wiki/extended-euclidean-algorithm/#extended-euclidean-algorithm
