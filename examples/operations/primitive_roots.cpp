@@ -44,8 +44,8 @@ int main()
 	}
 	cout << endl;
 
-	const long long modular_base = 100049;
-	const long long g = smallest_primitive_root(modular_base);
+	long long modular_base = 100049;
+	long long g = smallest_primitive_root(modular_base);
 
 	for (long long i = 2; i < modular_base; i++)
 	{
@@ -58,7 +58,23 @@ int main()
 	}
 
 	cout << endl;
-	cout << "PROCESS HAS ENDED" << endl;
 
+	cout << "try it yourself!\n";
+	cout << "input a prime number as modular base\n";
+	cout << "prime modular base\t: ";
+	cin >> modular_base;
+	cout << modular_base << " smallest primitive root is\t: " << smallest_primitive_root(modular_base) << endl;
+
+	cout << "the second and third requisites\n";
+	g = smallest_primitive_root(modular_base);
+	for (long long i = 2; i < modular_base; i++)
+	{
+		const auto x = operations::exponentiation::binary(g, i, modular_base);
+		if (x == 2021)
+		{
+			std::cout << "x = " << i << '\n';
+			break;
+		}
+	}
 	return 0;
 }
