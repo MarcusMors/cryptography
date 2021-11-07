@@ -37,8 +37,6 @@
 ## What are these?
 these are common operations in cryptography, number theory, and, in general, abstract algebra.
 
-### Primitive_roots
-
 **Compile** the code using:
 ```bash
 cmake -B build
@@ -55,6 +53,21 @@ cd examples/operations
 ### modular inverse
 
 #### explanation with example:
+
+**Compile** the code using:
+```bash
+cmake -B build
+cd build
+make
+```
+now, you are at `build/` directory.
+**run** the **example** doing:
+```bash
+cd examples/operations
+./operations_examples_inverse
+```
+
+
 inverse::euclid_extended(9,275)
 
 | euclidean divisions    | same, but Remainder on the left | same, but quotient on the left | replacing the        |
