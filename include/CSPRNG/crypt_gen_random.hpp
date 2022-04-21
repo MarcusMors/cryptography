@@ -13,17 +13,4 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-#include "./affine.hpp"
-#include "./cesar.hpp"
-#include "./scytale.hpp"
-#include "./rail_fence.hpp"
-#include "./RSA.hpp"
-
-namespace cryptography
-{
-	using namespace affine;
-	using namespace cesar;
-	using namespace scytale;
-	using namespace rail_fence;
-	using namespace RSA;
-}
+// provided by WINDOWS MICROSOFT

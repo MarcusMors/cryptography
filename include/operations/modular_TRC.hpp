@@ -1,5 +1,5 @@
-#ifndef __MODULE_H__
-#define __MODULE_H__
+#ifndef __MODULAR_TRC_H__
+#define __MODULAR_TRC_H__
 
 // Copyright (C) 2021 José Enrique Vilca Campana
 //
@@ -16,19 +16,39 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-#include <concepts>
+#include "./module.hpp"
+#include "./exponentiation.hpp"
+#include "./inverse.hpp"
+
 namespace operations
 {
-	template <std::integral T, std::integral R>
-	R mod(const T t_dividend, const R t_divisor);
+	template <typename T>
+	T modular_TRC(T t_num, T t_d, T t_n, T t_p, T t_q);
 } // namespace operations
 
-template <std::integral T, std::integral R>
-R operations::mod(const T t_dividend, const R t_divisor)
+template <typename T>
+T operations::modular_TRC(T t_a, T t_e, T t_n, T t_p, T t_q)
 {
-	const T quotient = t_dividend / t_divisor;
-	const T remainder = t_dividend - (quotient * t_divisor);
-	return remainder >= 0 ? remainder : t_divisor + remainder;
+	T a1, a2, d1, d2, P, P1, P2, q1, q2, D;
+	// descompose
+	d1 = mod(t_e, t_p - 1);
+	d2 = mod(t_e, t_q - 1);
+	a1 = exponentiation::modular(t_a, d1, t_p);
+	a2 = exponentiation::modular(t_a, d2, t_q);
+
+	// calculate P
+	P = t_p * t_q;
+	P1 = P / t_p;
+	P2 = P / t_q;
+
+	// q*P=1modp
+	q1 = multiplicative_inverse(P1, t_p);
+	q2 = multiplicative_inverse(P2, t_q);
+
+	// D = a*P*q ..
+	D = mod(mod(a1 * P1, P) * q1 + mod(a2 * P2, P) * q2, P);
+
+	return D;
 }
 
-#endif // __MODULE_H__
+#endif // __MODULAR_TRC_H__

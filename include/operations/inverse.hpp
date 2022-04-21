@@ -21,33 +21,39 @@
 #include <iostream>
 #endif
 
+// standard libraries
 #include <stdexcept>
-// user made libs
+#include <tuple>
+// user made libraries
 #include "./module.hpp"
 #include "./gcd.hpp"
+// Third party libraries
+#include <NTL/mat_ZZ.h>
 
 namespace operations
 {
-	namespace inverse
-	{
-		/**
-		 * @brief returns the modular multiplicative inverse of a given integer in a given modular base
-		 *
-		 * @details The multiplicative inverse of a mod_base exists if and only if integer and mod_base are coprime gcd(integer, mod_base) = 1.
-		 *
-		 * @tparam T integer
-		 * @param t_integer number which we will find its mod multiplicative inverse
-		 * @param t_mod_base modular base
-		 * @return T  t_integer^{-1} : modular multiplicative inverse of t_integer in t_mod_base
-		 */
-		template <typename T>
-		T euclid_extended(T t_integer, T t_mod_base);
-	} // namespace inverse
+	/**
+	 * @brief returns the modular multiplicative inverse of a given integer in a given modular base
+	 *
+	 * @details The multiplicative inverse of a mod_base exists if and only if integer and mod_base are coprime gcd(integer, mod_base) = 1.
+	 *
+	 * @tparam T integer
+	 * @param t_integer number which we will find its mod multiplicative inverse
+	 * @param t_mod_base modular base
+	 * @return T  t_integer^{-1} : modular multiplicative inverse of t_integer in t_mod_base
+	 */
+	template <typename T>
+	T multiplicative_inverse(T t_integer, T t_mod_base);
+
+	NTL::ZZ multiplicative_inverse(NTL::ZZ t_integer, NTL::ZZ t_mod_base);
+
+	template <typename T>
+	void extended_euclidean(T a, T b, T &x, T &y);
 
 } // namespace operations
 
 template <typename T>
-T operations::inverse::euclid_extended(T t_integer, T t_mod_base)
+T operations::multiplicative_inverse(T t_integer, T t_mod_base)
 {
 	// coprime checking.
 	if (gcd::euclidean_iterative(t_integer, t_mod_base) != 1)
@@ -56,7 +62,8 @@ T operations::inverse::euclid_extended(T t_integer, T t_mod_base)
 	}
 
 	// based in this explanation https://www.youtube.com/watch?v=D289EF58Yrw
-	T cont{0};
+
+	size_t cont{0};
 	T integer{t_integer};
 	T mod_base{t_mod_base};
 
@@ -73,7 +80,7 @@ T operations::inverse::euclid_extended(T t_integer, T t_mod_base)
 	T quotients[cont];
 	cont += 2;
 	T remainders[cont]{integer, mod_base};
-	T v[cont]{1, 0}; // (v[2], v[3]) always will be (1 , -quotients[3])
+	T v[cont]{T{1}, T{0}}; // (v[2], v[3]) always will be (1 , -quotients[3])
 
 	/** i * quotients_i * remainders_i * v_i                   *
 	 *  0 * -           * integer      * 0                     *
@@ -127,21 +134,26 @@ T operations::inverse::euclid_extended(T t_integer, T t_mod_base)
 	}
 }
 
+NTL::ZZ operations::multiplicative_inverse(NTL::ZZ t_integer, NTL::ZZ t_mod_base)
+{
+	NTL::ZZ x, y;
+	extended_euclidean(t_integer, t_mod_base, x, y);
+	return mod(x, t_mod_base);
+}
+
+template <typename T>
+void operations::extended_euclidean(T a, T b, T &x, T &y)
+{
+	x = T(1), y = T(0);
+
+	T x1(0), y1(1), a1(a), b1(b);
+	while (b1 != 0)
+	{
+		T q = a1 / b1;
+		std::tie(x, x1) = std::make_tuple(x1, x - q * x1);
+		std::tie(y, y1) = std::make_tuple(y1, y - q * y1);
+		std::tie(a1, b1) = std::make_tuple(b1, a1 - q * b1);
+	}
+}
+
 #endif // __INVERSE_H__
-
-// void gcdExtended(ZZ a, ZZ b, ZZ& x, ZZ& y) {
-//     x = ZZ(1), y = ZZ(0);
-
-//     ZZ x1(0), y1(1), a1(a), b1(b);
-//     while (b1 != 0) {
-//         ZZ q = a1 / b1;
-//         tie(x, x1) = make_tuple(x1, x - q * x1);
-//         tie(y, y1) = make_tuple(y1, y - q * y1);
-//         tie(a1, b1) = make_tuple(b1, a1 - q * b1);
-//     }
-// }
-// ZZ inverse(ZZ a,ZZ n){
-//     ZZ x,y;
-//     gcdExtended(a,n,x,y);
-//     return module(x,n);
-// }

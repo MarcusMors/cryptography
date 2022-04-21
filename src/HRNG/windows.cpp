@@ -1,4 +1,7 @@
-// Copyright (C) 2021 José Enrique Vilca Campana
+#ifndef __WINDOWS_H__
+#define __WINDOWS_H__
+
+// Copyright (C) 2022 José Enrique Vilca Campana
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License as
@@ -13,11 +16,11 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-#include <string>
+// #include <fileapi.h>
 
-namespace letter_frequency
+namespace HRNG
 {
-	typedef std::basic_string<char> b_str;
-	const b_str english{"etaoinshrdlcumwfgypbvkjxqz"};
 
-} // namespace letter_frequency
+} // namespace HRNG
+
+#endif // __WINDOWS_H__

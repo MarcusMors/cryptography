@@ -15,7 +15,21 @@
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 
-     Performance testing and tuning program.
+```mermaid
+classDiagram
 
-to read:
-https://www.geeksforgeeks.org/fast-io-for-competitive-programming/
+      class Subject{
+          +String beakColor
+          +swim()
+          +quack()
+      }
+      class Sender{
+          -int sizeInFeet
+          -canEat()
+      }
+      class Receiver{
+          +bool is_wild
+          +run()
+      }
+
+```

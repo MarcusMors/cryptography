@@ -13,11 +13,4 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-#include <string>
-
-namespace letter_frequency
-{
-	typedef std::basic_string<char> b_str;
-	const b_str english{"etaoinshrdlcumwfgypbvkjxqz"};
-
-} // namespace letter_frequency
+//  based on a variant of the RC4 cipher

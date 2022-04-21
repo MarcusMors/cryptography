@@ -24,19 +24,19 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-//third party dependencies
-//standar libraries
+// third party dependencies
+// standar libraries
 #include <iostream>
-#include <fstream>
-#include <string>
-#include <string.h>
-#include <stdio.h>
-//public libraries
+// #include <fstream>
+// #include <string>
+// #include <string.h>
+// #include <stdio.h>
+// public libraries
 #include <cryptography/caesar.hpp>
-//configuration file
+// configuration file
 #include "./ProjectConfig.h"
-#include "../src/constants/alphabets.hpp"
-//user made libs
+// user made libs
+#include "../../src/constants/alphabets.hpp"
 
 using namespace std;
 
@@ -84,10 +84,10 @@ int main(int argc = 0, char *argv[] = nullptr)
 			chosen_alphabet = alphabet::numeric;
 			break;
 		case choices::c_4:
-			chosen_alphabet = alphabet::special_characters;
+			chosen_alphabet = alphabet::special;
 			break;
 		case choices::c_5:
-			chosen_alphabet = alphabet::punctuation_symbols;
+			chosen_alphabet = alphabet::punctuation;
 			break;
 		case choices::c_6:
 			chosen_alphabet = alphabet::all_case;
@@ -105,11 +105,11 @@ int main(int argc = 0, char *argv[] = nullptr)
 			chosen_alphabet = alphabet::phonetic;
 			break;
 		case choices::c_11:
-			chosen_alphabet = alphabet::alphanumeric;
+			chosen_alphabet = alphabet::alphanum;
 			break;
 
 		default:
-			chosen_alphabet = alphabet::alphanumeric;
+			chosen_alphabet = alphabet::alphanum;
 			break;
 		}
 
@@ -117,7 +117,7 @@ int main(int argc = 0, char *argv[] = nullptr)
 		cout << "size:\t" << sizeof(chosen_alphabet) / sizeof(char) << endl;
 		Caesar caesar(chosen_alphabet, sizeof(chosen_alphabet));
 		*/
-		Caesar caesar(alphabet::lower_case, sizeof(alphabet::lower_case));
+		Caesar caesar{alphabet::lower_case};
 
 		string str;
 		cout << "message:\t";
@@ -171,14 +171,14 @@ void wizard(char &t_option)
 	cout << "[" << char(choices::c_1) << "] -- " << alphabet::lower_case << "\t-- lower case\n";
 	cout << "[" << char(choices::c_2) << "] -- " << alphabet::upper_case << "\t-- upper case\n";
 	cout << "[" << char(choices::c_3) << "] -- " << alphabet::numeric << "\t-- numeric\n";
-	cout << "[" << char(choices::c_4) << "] -- " << alphabet::special_characters << "\t-- special characters\n";
-	cout << "[" << char(choices::c_4) << "] -- " << alphabet::punctuation_symbols << "\t-- punctuation symbols\n";
+	cout << "[" << char(choices::c_4) << "] -- " << alphabet::special << "\t-- special characters\n";
+	cout << "[" << char(choices::c_4) << "] -- " << alphabet::punctuation << "\t-- punctuation symbols\n";
 	cout << "[" << char(choices::c_5) << "] -- " << alphabet::all_case << "\t-- all case --\n";
 	cout << "[" << char(choices::c_6) << "] -- " << alphabet::numeric_lower_case << "\t-- numeric lower case --\n";
 	cout << "[" << char(choices::c_7) << "] -- " << alphabet::numeric_upper_case << "\t-- numeric upper case --\n";
 	cout << "[" << char(choices::c_8) << "] -- " << alphabet::numeric_all_case << "\t-- numeric all case --\n";
 	cout << "[" << char(choices::c_9) << "] -- " << alphabet::phonetic << "\t-- numeric all case --\n";
-	cout << "[" << char(choices::c_10) << "] -- " << alphabet::alphanumeric << "\t-- numeric all case --\n";
+	cout << "[" << char(choices::c_10) << "] -- " << alphabet::alphanum << "\t-- numeric all case --\n";
 
 	cout << "\nelection\t: \n";
 

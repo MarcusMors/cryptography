@@ -12,12 +12,14 @@
 //
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
-#include <string>
-
-namespace letter_frequency
+namespace cryptography
 {
-	typedef std::basic_string<char> b_str;
-	const b_str english{"etaoinshrdlcumwfgypbvkjxqz"};
+	class key_generator
+	{
+	private:
+	public:
+		key_generator();
+		~key_generator();
+	};
 
-} // namespace letter_frequency
+} // namespace cryptography

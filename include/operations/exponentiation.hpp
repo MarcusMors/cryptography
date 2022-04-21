@@ -16,8 +16,12 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+// standard libraries
 #include <string>
 #include <iostream>
+
+// PUBLIC user made libraries
+#include "./module.hpp"
 
 namespace operations
 {
@@ -40,6 +44,8 @@ namespace operations
 		template <typename T>
 		T naive(T g, T e, T m);
 
+		template <typename T>
+		T modular(T a, T e, T n);
 	} // namespace exponentiation
 
 } // namespace operations
@@ -79,6 +85,22 @@ T operations::exponentiation::binary(T t_base, T t_exponent, T t_mod_base)
 	}
 
 	return result;
+}
+
+template <typename T>
+T modular(T a, T e, T n)
+{
+	T A(1);
+	std::string bin = to_binary(e);
+	for (int i = bin.size(); i != -1; i--)
+	{
+		A = mod(A * A, n);
+		if (bin[i] == '1')
+		{
+			A = mod(A * a, n);
+		}
+	}
+	return A;
 }
 
 // template <typename T>

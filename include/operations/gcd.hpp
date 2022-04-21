@@ -42,6 +42,13 @@ namespace operations
 		 */
 		template <typename T>
 		T euclidean_iterative(T t_a, T t_b);
+
+		template <typename T>
+		T binary(T t_a, T t_b);
+
+		template <typename T>
+		void euclidean_extended(T a, T b, T &x, T &y);
+
 	} // namespace gcd
 } // namespace operations
 
@@ -64,6 +71,60 @@ T operations::gcd::euclidean_iterative(T t_a, T t_b)
 		t_a = aux;
 	}
 	return t_a;
+}
+
+template <typename T>
+T operations::gcd::binary(T &u, T &v)
+{
+	T t, g, a, b;
+	g = 1;
+	a = abs(u);
+	b = abs(v);
+	while (a % 2 == 0 && b % 2 == 0)
+	{
+		a = a / 2;
+		b = b / 2;
+		g = 2 * g;
+	}
+	while (a != 0)
+	{
+		if (a % 2 == 0)
+		{
+			a = a / 2;
+		}
+		else if (b % 2 == 0)
+		{
+			b = b / 2;
+		}
+		else
+		{
+			t = abs(a - b) / 2;
+			if (a >= b)
+			{
+				a = t;
+			}
+			else
+			{
+				b = t;
+			}
+		}
+	}
+	return g * b;
+}
+
+template <typename T>
+void euclidean_extended(T a, T b, T &x, T &y)
+{
+	x = T(1), y = T(0);
+
+	T x1(0), y1(1), a1(a), b1(b);
+	while (b1 != 0)
+	{
+		T q = a1 / b1;
+		tie(x, x1) = make_tuple(x1, x - q * x1);
+		tie(y, y1) = make_tuple(y1, y - q * y1);
+		tie(a1, b1) = make_tuple(b1, a1 - q * b1);
+	}
 }
 
 #endif // __GCD_H__

@@ -13,11 +13,19 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-#include <string>
-
-namespace letter_frequency
+namespace utils
 {
-	typedef std::basic_string<char> b_str;
-	const b_str english{"etaoinshrdlcumwfgypbvkjxqz"};
+	int cstring_find(char t_target, char t_cstring[], unsigned t_size);
+} // namespace utils
 
-} // namespace letter_frequency
+int utils::cstring_find(char t_target, char t_cstring[], unsigned t_size)
+{
+	for (unsigned i = 0; i < t_size; i++)
+	{
+		if (t_target == t_cstring[i])
+		{
+			return i;
+		}
+	}
+	return -1;
+}

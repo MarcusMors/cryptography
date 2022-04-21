@@ -13,11 +13,6 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-#include <string>
-
-namespace letter_frequency
-{
-	typedef std::basic_string<char> b_str;
-	const b_str english{"etaoinshrdlcumwfgypbvkjxqz"};
-
-} // namespace letter_frequency
+// if dev/random is not supported or doesn't accomplish the minimum entropy required.
+// EGD is an option.
+// https: // en.wikipedia.org/wiki//dev/random#EGD_as_an_alternative

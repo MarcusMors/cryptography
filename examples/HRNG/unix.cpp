@@ -13,11 +13,17 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-#include <string>
+// standard libraries
+#include <iostream>
+// user made PUBLIC libraries
+#include <HRNG/unix.hpp>
 
-namespace letter_frequency
+using namespace std;
+
+int main()
 {
-	typedef std::basic_string<char> b_str;
-	const b_str english{"etaoinshrdlcumwfgypbvkjxqz"};
-
-} // namespace letter_frequency
+	unsigned seed = HRNG::random_unix();
+	std::cout << seed << std::endl;
+	std::cout << HRNG::free_disk_space() << std::endl;
+	return 0;
+}

@@ -21,7 +21,7 @@
 
 - cryptography ciphers
 - operations (module, inverse, gcd, mcm)
-- PRNG (chacha20, trivium)
+- CSPRNG (chacha20, trivium)
 - seed-generators
 
 ## How to compile it

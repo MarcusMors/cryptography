@@ -13,7 +13,5 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace RSA
-{
-
-}
+// In Windows NT, similar functionality is delivered by ksecdd.sys, but reading the special file \Device\KsecDD does not work as in UNIX. The documented methods to generate cryptographically random bytes are CryptGenRandom and RtlGenRandom.
+// source: https://en.wikipedia.org/wiki//dev/random#Other_operating_systems

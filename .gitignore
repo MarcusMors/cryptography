@@ -9,6 +9,7 @@ build
 *helper
 *aux
 *aux.*
+mock
 
 # Prerequisites
 *.d

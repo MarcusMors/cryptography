@@ -1,3 +1,6 @@
+#ifndef __UNIX_SERVER_ALTERNATIVE_H__
+#define __UNIX_SERVER_ALTERNATIVE_H__
+
 // Copyright (C) 2021 José Enrique Vilca Campana
 //
 // This program is free software: you can redistribute it and/or modify
@@ -13,11 +16,9 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-#include <string>
-
-namespace letter_frequency
+namespace HRNG
 {
-	typedef std::basic_string<char> b_str;
-	const b_str english{"etaoinshrdlcumwfgypbvkjxqz"};
+	unsigned int random_unix_server_alt();
+} // namespace HRNG
 
-} // namespace letter_frequency
+#endif // __UNIX_SERVER_ALTERNATIVE_H__

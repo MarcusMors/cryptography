@@ -1,51 +1,27 @@
-/**
- * @file caesar.cpp
- * @author Jose Vilca Campana <@marcusmors> (alivezeh@gmail.com)
- * @brief
- * @version DOC_VERSION_MAJOR.DOC_VERSION_MINOR
- * @date 2021-07-24
- *
- * @copyright Copyright (c) 2021
- *
- */
-
-#include <iostream>
 #include <fstream>
 #include <vector>
-//user made public libs
+// user made public libs
 #include <cryptography/caesar.hpp>
 #include <operations/module.hpp>
-//user made libs
+// user made libs
 #include "../constants/alphabets.hpp"
 #include "../constants/letter_frequency.hpp"
 
 using namespace std;
 using namespace operations;
 
-Caesar::Caesar(const char t_alphabet[], const unsigned t_alphabet_size)
+void Caesar::cipher(string_view &t_msg, const int &t_key)
 {
-	m_alphabet_size = t_alphabet_size - 1;
-	m_alphabet = new char[m_alphabet_size];
-	for (int i = 0; i < m_alphabet_size; i++)
-	{
-		m_alphabet[i] = t_alphabet[i];
-	}
-	cout << m_alphabet << endl;
-}
-void Caesar::cipher(char t_msg[], int t_key)
-{
-	const int msg_size = sizeof(t_msg) - 1;
-	const int key = mod(t_key, m_alphabet_size);
-
-	char ciphered[msg_size];
+	const int msg_size = t_msg.size() - 1;
+	const int key = mod(t_key, alphabet.size());
 
 	for (int i = 0; i < msg_size; i++)
 	{
-		for (int j = 0; j < m_alphabet_size; j++)
+		for (int j = 0; j < alphabet.size(); j++)
 		{
-			if (t_msg[i] == m_alphabet[j])
+			if (t_msg[i] == alphabet[j])
 			{
-				ciphered[i] = m_alphabet[mod((j + key), m_alphabet_size)];
+				ciphered[i] = alphabet[mod((j + key), alphabet.size())];
 				break;
 			}
 		}
@@ -57,19 +33,19 @@ void Caesar::cipher(char t_msg[], int t_key)
 	cout << ciphered << endl;
 }
 
-void Caesar::descipher(char t_msg[], int t_key)
+void Caesar::descipher(string_view t_msg, const int &t_key)
 {
-	const int msg_size = sizeof(t_msg) - 1;
-	const int key = mod(t_key, m_alphabet_size);
+	const int msg_size = t_msg.size() - 1;
+	const int key = mod(t_key, alphabet.size());
 
 	char ciphered[msg_size];
 	for (int i = 0; i < msg_size; i++)
 	{
-		for (int j = 0; j < m_alphabet_size; j++)
+		for (int j = 0; j < alphabet.size(); j++)
 		{
-			if (t_msg[i] == m_alphabet[j])
+			if (t_msg[i] == alphabet[j])
 			{
-				ciphered[i] = m_alphabet[mod((j + m_alphabet_size - key), m_alphabet_size)];
+				ciphered[i] = alphabet[mod((j + alphabet.size() - key), alphabet.size())];
 				break;
 			}
 		}
@@ -139,9 +115,9 @@ void Caesar::crypto_analysis(char t_msg[]) // desciph a message
 		}
 		old_greatest = greatest;
 
-		for (int j = 0; j < m_alphabet_size; j++)
+		for (int j = 0; j < alphabet.size(); j++)
 		{
-			if (char(frequency[1][index]) == m_alphabet[j])
+			if (char(frequency[1][index]) == alphabet[j])
 			{
 				descipher(copy, index);
 				break;

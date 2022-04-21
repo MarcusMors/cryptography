@@ -1,3 +1,6 @@
+#ifndef __CAESAR_H__
+#define __CAESAR_H__
+
 // Copyright (C) 2021 José Enrique Vilca Campana
 //
 // This program is free software: you can redistribute it and/or modify
@@ -20,19 +23,20 @@
 // 	void cryptoAnalysis(std::string &msg);
 // } // namespace caesar
 
+#include <string_view>
+
 class Caesar
 {
 private:
-	char *m_alphabet;
-	int m_alphabet_size{};
+	std::string_view alphabet;
 
 public:
-	Caesar(const char t_alphabet[], const unsigned t_alphabet_size);
-	// caesar(const char &t_alphabet);
-	// caesar(char t_alphabet[]);
+	Caesar(const std::string_view &t_alphabet) : alphabet{t_alphabet} {}
 	// char *cipher(const char *&t_msg);
-	void cipher(char t_msg[], int t_key);
+	void cipher(std::string_view &t_msg, const int &t_key);
 	// char *descipher(const char *&t_msg);
-	void descipher(char t_msg[], int t_key);
+	void descipher(std::string_view &t_msg, const int &t_key);
 	void crypto_analysis(char t_msg[]);
 };
+
+#endif // __CAESAR_H__
